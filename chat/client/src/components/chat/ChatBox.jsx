@@ -15,10 +15,10 @@ const ChatBox = () => {
   const [textMessage, setTextMessage] = useState("");
   const scroll = useRef();
   console.log("textmessages", textMessage);
-  
-  useEffect(()=>{
-    scroll.current?.scrollIntoView({behaviour:"smooth"})
-  },[messages])
+
+  useEffect(() => {
+    scroll.current?.scrollIntoView({ behaviour: "smooth" })
+  }, [messages])
 
 
   if (!recipientUser)
@@ -32,7 +32,7 @@ const ChatBox = () => {
     return <p style={{ textAlign: "center", width: "100%" }}>Loading...</p>;
 
   return (
-    <Stack gap={4} className="chat-box">
+    <Stack className="chat-box">
       <div className="chat-header">
         <strong>{recipientUser?.name}</strong>
       </div>
@@ -41,12 +41,11 @@ const ChatBox = () => {
           messages.map((message, index) => (
             <Stack
               key={index}
-              className={`${
-                message?.senderId === user?._id
-                  ? "message align-self-end flex-grow-0"
-                  : "message self align-self-start flex-grow-0"
-              }`}
-              ref = {scroll}
+              className={`${message?.senderId === user?._id
+                ? "message align-self-end flex-grow-0"
+                : "message self align-self-start flex-grow-0"
+                }`}
+              ref={scroll}
             >
               <span>{message.text}</span>
               <span className="message-footer">
@@ -56,19 +55,32 @@ const ChatBox = () => {
           ))}
       </Stack>
       <Stack direction="horizontal" gap={3} className="chat-input flex-group-0">
-        <InputEmoji
+
+      <InputEmoji
           value={textMessage}
           onChange={setTextMessage}
-          fontFamily="nunito"
-          borderColor="rgba(72,112,223,0.2"
+          fontFamily="Nunito"
+          borderColor="rgba(72,112,223,0.2)"
+          style={{ backgroundColor: '#000' }} 
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              console.log(e.key)
+              e.preventDefault(); // Prevent the default action of the Enter key
+              sendTextMessage(textMessage, user, currentChat._id, setTextMessage);
+            }
+          }}// Set background color to '#333'
         />
-        <button  className="send-btn" onClick={()=>{
-          sendTextMessage(textMessage,user,currentChat._id,setTextMessage)
-        }}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-send-fill" viewBox="0 0 16 16">
-  <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z"/>
-</svg>
+        <button
+          className="send-btn"
+          onClick={() => sendTextMessage(textMessage, user, currentChat._id, setTextMessage)}
+         
+          tabIndex="0" // Ensure the button can receive focus
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-send-fill" viewBox="0 0 16 16">
+            <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z" />
+          </svg>
         </button>
+
       </Stack>
     </Stack>
   );

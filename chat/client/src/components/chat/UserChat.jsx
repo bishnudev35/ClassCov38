@@ -9,6 +9,7 @@ const {onlineUsers} = useContext(ChatContext)
 const isOnline =   onlineUsers?.some((user)=> user?.userId === recipientUser?._id)
 
   return (
+  
     <Stack
       direction="horizontal"
       gap={3}
@@ -23,11 +24,12 @@ const isOnline =   onlineUsers?.some((user)=> user?.userId === recipientUser?._i
         </div>
       </div>
       <div className="d-flex flex-column align-items-end">
-        <div className="date">12/12/12</div>
+        <div className="date">01/01/24</div>
         <div className="this-user-notifications">2</div>
         <span className={isOnline ? "user-online":""}></span>
       </div>
     </Stack>
+  
   );
 };
 
