@@ -4,7 +4,7 @@ import { CgPlayListCheck } from "react-icons/cg";
 
 function QuizSection() {
   return (
-    <a href="quiz">
+    <a href="quiz" style={{ zIndex: 20 }}>
       <div className="bg-gray-900 rounded-t-lg p-5 flex justify-between items-center">
         <h1 className="text-white text-4xl">Quiz Section</h1>
       </div>

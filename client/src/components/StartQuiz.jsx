@@ -5,7 +5,7 @@ const StartQuiz = () => {
   return (
     <>
       <Header />
-      <div className="mx-auto max-w-4xl p-6 border border-gray-300 rounded-lg ">
+      <div className="mx-auto max-w-4xl p-6 border border-gray-300 rounded-lg text-black" style={{ backgroundColor: '#0EB0AB' }}>
 
         <h1 className="text-3xl font-bold mb-6">Attempt the Quiz</h1>
         <hr />
@@ -68,11 +68,10 @@ const StartQuiz = () => {
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-  <a href="/quiz" className="start-button inline-block bg-green-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" style={{ fontSize: '1.5rem' }}>
-    Start
-  </a>
-</div>
-
+          <a href="/quiz" className="start-button inline-block bg-green-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" style={{ fontSize: '1.5rem' }}>
+            Start
+          </a>
+        </div>
 
       </div>
     </>

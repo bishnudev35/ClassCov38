@@ -87,11 +87,12 @@ useEffect(() => {
   };
 
   const cardHoverStyle = {
-    background: "#2f6f6f",
+    // background: "#2f6f6f",
     borderRadius: "10px",
     boxShadow:
-      "rgba(0, 0, 0, 0.8) 0px 2px 20px, rgba(0, 0, 0, 0.6) 0px 15px 15px -7px, rgba(0, 0, 0, 0.4) 0px -3px 0px inset",
-    transform: "scale(1.08)",
+  "rgba(0, 255, 255, 0.4) 0px 2px 14px, rgba(0, 255, 255, 0.3) 0px 13px 13px -3px, rgba(0, 255, 255, 0.2) 0px -3px 0px inset",
+
+    transform: "scale(1.09)",
   };
 
   // State to track hover state for each card
