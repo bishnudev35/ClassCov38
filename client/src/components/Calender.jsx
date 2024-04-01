@@ -25,7 +25,7 @@ function CalendarApp() {
 
   return (
     <div className='app'>
-       <div style={{ backgroundColor:'#063f5c' ,boxShadow: 'rgba(0, 0, 0, 0.4) 0px 2px 14px, rgba(0, 0, 0, 0.3) 0px 13px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset'}} className='rounded-lg p-5 flex flex-col justify-center items-center shadow-lg'>
+       <div style={{ backgroundColor:'rgba(15, 107, 116, 1)' ,boxShadow: 'rgba(0, 0, 0, 0.4) 0px 2px 14px, rgba(0, 0, 0, 0.3) 0px 13px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset'}} className='rounded-lg p-5 flex flex-col justify-center items-center shadow-lg'>
         <Calendar
           onChange={setDate}
           onMouseOver={(e) => setHoveredDate(e.date)}

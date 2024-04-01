@@ -13,23 +13,15 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import "./Home.css"; 
+import { PieChart, Pie, Cell, Tooltip as PieTooltip } from "recharts";
 import Todo from "../components/Todo/Todo";
 
 function Home() {
   const [assignments, setAssignments] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [user,setUser] = useState("")
-  const [notes , setNotes] = useState([]);
-  const [noNotes,setNoNotes] = useState(0);
-
-  const data = [
-    { name: "Attendance", Performance: 50 },
-    { name: "Quiz", Performance: 30 },
-    { name: "Assignment", Performance: 69 },
-    { name: "ExtraCurricular", Performance: 30 },
-    { name: "Grade", Performance: 50 },
-  ];
+  const [user, setUser] = useState("");
+  const [notes, setNotes] = useState([]);
+  const [noNotes, setNoNotes] = useState(0);
 
   useEffect(() => {
     fetch("http://localhost:8000/api/v1/students/getAssignments")
@@ -44,29 +36,29 @@ function Home() {
       })
       .catch((error) => console.error("Error fetching assignments:", error));
   }, []);
-  
 
   useEffect(() => {
-  const User = localStorage.getItem("studentName");
-   if(User){
-   const  user = User.replace(/"/g , "");
-    console.log(user)
-    setUser(user)
-   }
-  
-}, []);
-useEffect(() => {
-  const notesString = localStorage.getItem("notes");
-  if (notesString) {
-    const notesArray = JSON.parse(notesString);
-    setNotes(notesArray);
-    const totalProps = notesArray.reduce((acc, obj) => acc + Object.keys(obj).length, 0);
-    console.log(totalProps);
-    setNoNotes(totalProps/3);
-  }
-}, []);
+    const User = localStorage.getItem("studentName");
+    if (User) {
+      const user = User.replace(/"/g, "");
+      console.log(user);
+      setUser(user);
+    }
+  }, []);
 
-
+  useEffect(() => {
+    const notesString = localStorage.getItem("notes");
+    if (notesString) {
+      const notesArray = JSON.parse(notesString);
+      setNotes(notesArray);
+      const totalProps = notesArray.reduce(
+        (acc, obj) => acc + Object.keys(obj).length,
+        0
+      );
+      console.log(totalProps);
+      setNoNotes(totalProps / 3);
+    }
+  }, []);
 
   const divStyle = {
     height: "170px",
@@ -90,7 +82,7 @@ useEffect(() => {
     // background: "#2f6f6f",
     borderRadius: "10px",
     boxShadow:
-  "rgba(0, 255, 255, 0.4) 0px 2px 14px, rgba(0, 255, 255, 0.3) 0px 13px 13px -3px, rgba(0, 255, 255, 0.2) 0px -3px 0px inset",
+      "rgba(0, 255, 255, 0.4) 0px 2px 14px, rgba(0, 255, 255, 0.3) 0px 13px 13px -3px, rgba(0, 255, 255, 0.2) 0px -3px 0px inset",
 
     transform: "scale(1.09)",
   };
@@ -100,6 +92,22 @@ useEffect(() => {
   const [isHovered2, setIsHovered2] = useState(false);
   const [isHovered3, setIsHovered3] = useState(false);
   const [isHovered4, setIsHovered4] = useState(false);
+
+  const data = [
+    { name: "Attendance", Performance: 50 },
+    { name: "Quiz", Performance: 30 },
+    { name: "Assignment", Performance: 69 },
+    { name: "ExtraCurricular", Performance: 30 },
+    { name: "Grade", Performance: 50 },
+  ];
+
+  const pieChartData = [
+    { name: "Attendance", value: 50 },
+    { name: "Quiz", value: 30 },
+    { name: "Assignment", value: 69 },
+    { name: "ExtraCurricular", value: 30 },
+    { name: "Grade", value: 50 },
+  ];
 
   return (
     <main
@@ -184,45 +192,64 @@ useEffect(() => {
         </div>
       </div>
 
-      <div
-        className="line-chart-calendar-container mt-8"
-        style={{ display: "flex", justifyContent: "space-between" }}
-      >
-        <ResponsiveContainer
-          width="60%"
-          height="60%"
-          style={{ marginLeft: "130px", marginRight:"50px", marginTop: "10px"}}
-        >
-          <div style={{ width: "100%", height: "300px" }}>
-            <LineChart
-              width={900}
-              height={300}
-              data={data}
-              margin={{
-                top: 15,
-                right: 0,
-                left: -18,
-                bottom: 20,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Line
-                type="linear"
-                dataKey="Performance"
-                stroke="green"
-                activeDot={{ r: 8 }}
-              />
-            </LineChart>
-          </div>
-        </ResponsiveContainer>
 
-       
-        <div></div>
-      </div>
+
+      <div className="line-chart-calendar-container mt-8 " style={{ display: "flex", justifyContent: "space-between" }}>
+      <ResponsiveContainer width="50%" height="60%" style={{ marginRight: "10px", marginTop: "10px" }}>
+  <div style={{ width: "100%", height: "300px" }}>
+    <LineChart
+      width={700}
+      height={310}
+      data={data}
+      margin={{
+        top: 15,
+        right: 0,
+        left: 18,
+        bottom: 20,
+      }}
+    >
+      <CartesianGrid strokeDasharray="3 3" />
+      <XAxis dataKey="name" stroke="#ffffff" /> {/* Setting stroke color to white */}
+      <YAxis stroke="#ffffff" /> {/* Setting stroke color to white */}
+      <Tooltip contentStyle={{ color: '#ffffff' }} /> {/* Setting tooltip text color to white */}
+      <Legend iconType="circle" iconSize={10} wrapperStyle={{ color: '#ffffff' }} /> {/* Setting legend text color to white */}
+      <Line
+        type="linear"
+        dataKey="Performance"
+        stroke="green"
+        activeDot={{ r: 8 }}
+      />
+    </LineChart>
+  </div>
+</ResponsiveContainer>
+
+
+  <ResponsiveContainer width="50%" height="60%" style={{ marginLeft: "300px", marginTop: "-62px" }}>
+  <div style={{ width: "100%", height: "300px" }}>
+    <PieChart width={400} height={400}>
+      <Pie
+        data={pieChartData}
+        cx="50%"
+        cy="50%"
+        outerRadius={120}
+        fill="#8884d8"
+        dataKey="value"
+        label
+      >
+        {pieChartData.map((entry, index) => (
+          <Cell key={`cell-${index}`} fill={`rgba(${index * 17}, ${index * 130}, ${index * 140}, 0.2)`} />
+        ))}
+      </Pie>
+      <Tooltip contentStyle={{ color: '#ffffff' }} /> {/* Setting tooltip text color to white */}
+    </PieChart>
+  </div>
+</ResponsiveContainer>
+
+
+
+</div>
+
+
       <div
         className="bg-[#248dad1f] rounded-xl dark-card shadow-xl p-4 pt-6 mt-6 pl-14 pr-14 "
         style={{
@@ -238,104 +265,74 @@ useEffect(() => {
           Upcoming Class
         </h1>
 
-        <table className="w-full text-white border-collapse rounded-xl border border-gray-400" >
+        <table className="w-full text-white border-collapse rounded-xl border border-gray-400">
           <thead>
             <tr>
-              <th className="p-2 border border-gray-400" >Subject</th>
+              <th className="p-2 border border-gray-400">Subject</th>
               <th className="p-2 border border-gray-400">Teachers Name</th>
               <th className="p-2 border border-gray-400">Date</th>
               <th className="p-2 border border-gray-400">Time</th>
-              
             </tr>
           </thead>
           <tbody>
-            {/* {assignments.map((assignment) => (
-              <tr key={assignment.id} className="hover:bg-gray-900">
-                
-               
-              </tr>
-            ))} */}
             <tr>
-            <td className="p-2 border border-gray-600">
-                  English
-                </td>
-                <td className="p-2 border border-gray-600">
-                RAMCHARAN ROY
-                </td>
-                <td className="p-2 border border-gray-600">
-               30.03.2024
-                </td>
-                <td className="p-2 border border-gray-600">10.30 AM</td>
+              <td className="p-2 border border-gray-600">English</td>
+              <td className="p-2 border border-gray-600">RAMCHARAN ROY</td>
+              <td className="p-2 border border-gray-600">30.03.2024</td>
+              <td className="p-2 border border-gray-600">10.30 AM</td>
             </tr>
             <tr>
-            <td className="p-2 border border-gray-600">
-                 Mathematics
-                </td>
-                <td className="p-2 border border-gray-600">
-               AJIT SAHA
-                </td>
-                <td className="p-2 border border-gray-600">
-               30.05.2024
-                </td>
-                <td className="p-2 border border-gray-600">11.30 AM</td>
+              <td className="p-2 border border-gray-600">Mathematics</td>
+              <td className="p-2 border border-gray-600">AJIT SAHA</td>
+              <td className="p-2 border border-gray-600">30.05.2024</td>
+              <td className="p-2 border border-gray-600">11.30 AM</td>
             </tr>
           </tbody>
         </table>
       </div>
 
-
       <div
-  className="bg-[#286f6f56] rounded-xl dark-card shadow-xl p-4 pt-6 mt-6 pl-14 pr-14"
-  style={{
-    boxShadow:
-      "rgba(0, 0, 0, 0.4) 0px 2px 14px, rgba(0, 0, 0, 0.3) 0px 13px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset",
-  }}
-  hoverStyle={{
-    boxShadow:
-      "rgba(0, 0, 0, 0.8) 0px 2px 20px, rgba(0, 0, 0, 0.6) 0px 15px 15px -7px, rgba(0, 0, 0, 0.4) 0px -3px 0px inset",
-  }}
->
-  <h1 className="text-center text-3xl font-bold text-white pb-7">
-    Pending Assignments
-  </h1>
+        className="bg-[#286f6f56] rounded-xl dark-card shadow-xl p-4 pt-6 mt-6 pl-14 pr-14"
+        style={{
+          boxShadow:
+            "rgba(0, 0, 0, 0.4) 0px 2px 14px, rgba(0, 0, 0, 0.3) 0px 13px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset",
+        }}
+        hoverStyle={{
+          boxShadow:
+            "rgba(0, 0, 0, 0.8) 0px 2px 20px, rgba(0, 0, 0, 0.6) 0px 15px 15px -7px, rgba(0, 0, 0, 0.4) 0px -3px 0px inset",
+        }}
+      >
+        <h1 className="text-center text-3xl font-bold text-white pb-7">
+          Pending Assignments
+        </h1>
 
-  <table className="w-full text-white border-collapse rounded-xl border border-gray-400">
-    <thead>
-      <tr>
-        <th className="p-2 border border-gray-400">Subject</th>
-        <th className="p-2 border border-gray-400">Teachers Name</th>
-        <th className="p-2 border border-gray-400">Deadline</th>
-        <th className="p-2 border border-gray-400">Status</th>
-        <th className="p-2 border border-gray-400">Priority</th>
-      </tr>
-    </thead>
-    <tbody>
-      {assignments.map((assignment) => (
-        <tr key={assignment.id} className="hover:bg-gray-900">
-          <td className="p-2 border border-gray-600">
-            {assignment.subject}
-          </td>
-          <td className="p-2 border border-gray-600">
-            {assignment.teacherName}
-          </td>
-          <td className="p-2 border border-gray-600">{assignment.deadline}</td>
-          <td className="p-2 border border-gray-600">Pending</td>
-          <td className="p-2 border border-gray-600">High</td>
-        </tr>
-      ))}
-     
-    </tbody>
-  </table>
-</div>
-
-
-<div style={{ height: '50px', width: '300px' }}>
-
-</div>
-
-
-
-      
+        <table className="w-full text-white border-collapse rounded-xl border border-gray-400">
+          <thead>
+            <tr>
+              <th className="p-2 border border-gray-400">Subject</th>
+              <th className="p-2 border border-gray-400">Teachers Name</th>
+              <th className="p-2 border border-gray-400">Deadline</th>
+              <th className="p-2 border border-gray-400">Status</th>
+              <th className="p-2 border border-gray-400">Priority</th>
+            </tr>
+          </thead>
+          <tbody>
+            {assignments.map((assignment) => (
+              <tr key={assignment.id} className="hover:bg-gray-900">
+                <td className="p-2 border border-gray-600">
+                  {assignment.subject}
+                </td>
+                <td className="p-2 border border-gray-600">
+                  {assignment.teacherName}
+                </td>
+                <td className="p-2 border border-gray-600">{assignment.deadline}</td>
+                <td className="p-2 border border-gray-600">Pending</td>
+                <td className="p-2 border border-gray-600">High</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </main>
   );
 }
