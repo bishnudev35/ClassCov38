@@ -13,11 +13,15 @@
   .sidebar-title {
     padding-bottom: 20px;
     border-bottom: 1px solid #2c2c2c;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 14px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    transition: all 0.3s ease;
   }
   
   .sidebar-title:hover {
-    background-color: #0605333e; 
+    box-shadow: rgba(0, 255, 255, 0.4) 0px 2px 14px, rgba(0, 255, 255, 0.2) 0px -3px 0px inset;
+    /* transform: scale(1.06); */
   }
+  
   
   .sidebar-title .sidebar-brand {
     color: white;
@@ -32,10 +36,15 @@
     color: white;
     cursor: pointer;
     margin-left: auto;
+    /* box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 14px, rgba(0, 0, 0, 0.3) 0px 13px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset; */
+    transition: all 0.3s ease;
   }
   
   .toggle-sidebar-btn:hover {
     color: #12db94; 
+    box-shadow: rgba(0, 255, 255, 0.4) 0px 2px 14px, rgba(0, 255, 255, 0.3) 0px 13px 13px -3px, rgba(0, 255, 255, 0.2) 0px -3px 0px inset;
+    transform: scale(1.06);
+    border-radius: 30%;
   }
   
   .sidebar-list {
@@ -47,10 +56,14 @@
   .sidebar-list-item {
     padding: 20px 20px;
     border-bottom: 1px solid #333333;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 14px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    transition: all 0.4s ease;
   }
   
   .sidebar-list-item:hover {
     background-color: #01b3ff3b; 
+    box-shadow: rgba(0, 255, 255, 0.4) 0px 2px 14px, rgba(0, 255, 255, 0.2) 10px -3px 10px inset;
+    transform: scale(1.08);
   }
   
   .sidebar-list-item a {
