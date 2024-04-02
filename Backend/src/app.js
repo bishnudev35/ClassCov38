@@ -24,8 +24,11 @@ app.use("/api/v1/students",studentRouter)
 import assignmentRouter from "./routes/assignment.routes.js"
 import  teacherRouter from "./routes/teacher.routes.js"
 import quizzRouter from "./routes/quizz.routes.js"
+import { getAllStudents } from "./controllers/student.controller.js"
+import { sendMail } from "./controllers/mail.controller.js"
 app.use("/api/v1/teachers",teacherRouter)
 app.use("/api/v1/teachers",assignmentRouter)
 app.use("/api/v1/teachers",quizzRouter)
-
+app.use("/api/v1/teachers",getAllStudents)
+app.use("/api/v1/teachers",sendMail)
 export default app;

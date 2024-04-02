@@ -12,10 +12,10 @@ function App() {
       const minutes = currentTime.getMinutes();
       const seconds = currentTime.getSeconds();
 
-      if (hours === 6 && minutes === 5 && seconds === 58) {
+      if (hours === 0 && minutes === 6 && seconds === 58) {
         localStorage.clear();
       }
-      if (hours === 6 && minutes === 6 && seconds === 0) {
+      if (hours === 0 && minutes === 7 && seconds === 0) {
         fetchRandomWord();
       }
     };
@@ -65,8 +65,9 @@ function App() {
       const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en_US/${word}`);
       const data = await response.json();
       const meaning = data[0]?.meanings[0]?.definitions[0]?.definition;
+      const partOfSpeech = data[0]?.meanings[0]?.partOfSpeech || "N/A"; // Default to "N/A" if partOfSpeech is not available
       if (meaning) {
-        const newWordData = [{ word, meaning }, ...wordData];
+        const newWordData = [{ word, meaning, partOfSpeech }, ...wordData];
         setWordData(newWordData);
         localStorage.setItem('wordData', JSON.stringify(newWordData));
       }
@@ -77,32 +78,31 @@ function App() {
 
   return (
     <>
-    <Header/>
-    <div>
-  <h1 className='flex justify-center text-4xl font-bold p-5 '>Vocab Challenge</h1>
-  {wordData.map((item, index) => (
-    <div key={index} className="word-description flex justify-center" style={{
-      backgroundColor: '#064B4D',
-      color: '#fff',
-      padding: '40px', 
-      margin: '150px',
-      borderRadius: '8px',
-      boxShadow: 'rgba(0, 0, 0, 0.4) 0px 2px 14px, rgba(0, 0, 0, 0.3) 0px 13px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset',
-      transition: 'all 0.3s ease',
-      width: '1200px',
-    }}
-      onMouseEnter={(e) => {
-        e.target.style.boxShadow = 'rgba(0, 0, 0, 0.8) 0px 2px 20px, rgba(0, 0, 0, 0.6) 0px 15px 15px -7px, rgba(0, 0, 0, 0.4) 0px -3px 0px inset';
-      }}
-      onMouseLeave={(e) => {
-        e.target.style.boxShadow = 'rgba(0, 0, 0, 0.4) 0px 2px 14px, rgba(0, 0, 0, 0.3) 0px 13px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset';
-      }}>
-      {index === 0 ? <WordDescription word={item.word} meaning={item.meaning} /> : null}
-    </div>
-  ))}
-</div>
-</>
-
+      <Header />
+      <div>
+        <h1 className='flex justify-center text-4xl font-bold p-5'>Vocab Challenge</h1>
+        {wordData.map((item, index) => (
+          <div key={index} className="word-description flex justify-center" style={{
+            backgroundColor: '#064B4D',
+            color: '#fff',
+            padding: '40px',
+            margin: '150px',
+            borderRadius: '8px',
+            boxShadow: 'rgba(0, 0, 0, 0.4) 0px 2px 14px, rgba(0, 0, 0, 0.3) 0px 13px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset',
+            transition: 'all 0.3s ease',
+            width: '1200px',
+          }}
+            onMouseEnter={(e) => {
+              e.target.style.boxShadow = 'rgba(0, 0, 0, 0.8) 0px 2px 20px, rgba(0, 0, 0, 0.6) 0px 15px 15px -7px, rgba(0, 0, 0, 0.4) 0px -3px 0px inset';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.boxShadow = 'rgba(0, 0, 0, 0.4) 0px 2px 14px, rgba(0, 0, 0, 0.3) 0px 13px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset';
+            }}>
+            {index === 0 ? <WordDescription word={item.word} meaning={item.meaning} partOfSpeech={item.partOfSpeech} /> : null}
+          </div>
+        ))}
+      </div>
+    </>
   );
 }
 
