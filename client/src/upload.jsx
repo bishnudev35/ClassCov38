@@ -3,6 +3,8 @@ import axios from "axios";
 import Input from "./components/Input";
 import Button from "./components/Button";
 import { useNavigate } from "react-router-dom";
+import './upload.css';
+
 
 export default function Component() {
   const navigate = useNavigate();
@@ -84,7 +86,7 @@ export default function Component() {
   };
 
   return (
-    <div className="min-h-screen bg-[#161616] py-10 px-4">
+    <div className="min-h-screen py-1 px-4">
       <div className="max-w-6xl mx-auto">
         <div className="grid md:grid-cols-2 gap-10">
           <div className="bg-[#313131] shadow-lg rounded-lg p-6 mt-16">

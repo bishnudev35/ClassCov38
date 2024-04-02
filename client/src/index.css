@@ -29,7 +29,7 @@ body,
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(#12db94, #12db94) #12db9470;
+    background: linear-gradient(#0ca2e8, #0ca2e8) #0ca2e8;
 }
 
 ::-webkit-scrollbar-thumb {
