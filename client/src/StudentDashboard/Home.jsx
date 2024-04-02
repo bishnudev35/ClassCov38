@@ -92,6 +92,7 @@ function Home() {
   const [isHovered2, setIsHovered2] = useState(false);
   const [isHovered3, setIsHovered3] = useState(false);
   const [isHovered4, setIsHovered4] = useState(false);
+  const [isHovered5, setIsHovered5] = useState(false);
 
   const data = [
     { name: "Attendance", Performance: 50 },
@@ -209,14 +210,14 @@ function Home() {
       }}
     >
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" stroke="#ffffff" /> {/* Setting stroke color to white */}
-      <YAxis stroke="#ffffff" /> {/* Setting stroke color to white */}
-      <Tooltip contentStyle={{ color: '#ffffff' }} /> {/* Setting tooltip text color to white */}
-      <Legend iconType="circle" iconSize={10} wrapperStyle={{ color: '#ffffff' }} /> {/* Setting legend text color to white */}
+      <XAxis dataKey="name" stroke="#ffffff" /> 
+      <YAxis stroke="#ffffff" /> 
+      <Tooltip contentStyle={{ color: '#ffffff' }} /> 
+      <Legend iconType="circle" iconSize={10} wrapperStyle={{ color: '#ffffff' }} /> 
       <Line
         type="linear"
         dataKey="Performance"
-        stroke="green"
+        stroke="grey"
         activeDot={{ r: 8 }}
       />
     </LineChart>
@@ -224,7 +225,7 @@ function Home() {
 </ResponsiveContainer>
 
 
-  <ResponsiveContainer width="50%" height="60%" style={{ marginLeft: "300px", marginTop: "-62px" }}>
+<ResponsiveContainer width="50%" height="60%" style={{ marginLeft: "300px", marginTop: "-62px" }}>
   <div style={{ width: "100%", height: "300px" }}>
     <PieChart width={400} height={400}>
       <Pie
@@ -237,13 +238,14 @@ function Home() {
         label
       >
         {pieChartData.map((entry, index) => (
-          <Cell key={`cell-${index}`} fill={`rgba(${index * 17}, ${index * 130}, ${index * 140}, 0.2)`} />
+          <Cell key={`cell-${index}`} fill={`rgba(${index * 17}, ${index * 130}, ${index * 140}, 0.2)`} data/>
         ))}
       </Pie>
-      <Tooltip contentStyle={{ color: '#ffffff' }} /> {/* Setting tooltip text color to white */}
+      <Tooltip contentStyle={{ color: '#ffffff' }} fill="white" />
     </PieChart>
   </div>
 </ResponsiveContainer>
+
 
 
 

@@ -71,7 +71,7 @@ function NoteSection() {
           <div
             className="bg-green-900 p-6 rounded-lg"
             style={{
-              backgroundColor: "#016163",
+              backgroundColor: "#0B6E6E",
               boxShadow:
                 "rgba(0, 0, 0, 0.4) 0px 2px 14px, rgba(0, 0, 0, 0.3) 0px 13px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset",
             }}
