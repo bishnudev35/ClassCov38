@@ -56,7 +56,7 @@ const AssignmentUpload = () => {
     return (
         <>
         <Header/>
-        <div className="flex flex-col items-center justify-center min-h-screen bg-[#202020]">
+        <div className="flex flex-col items-center justify-center min-h-screen mt-3">
             <form onSubmit={handleSubmit} className="w-full max-w-lg p-8 space-y-4 bg-[#096669] rounded shadow">
                 <h2 className="text-xl font-bold">Upload Assignment</h2>
                 <div>

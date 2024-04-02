@@ -44,22 +44,25 @@ function Home() {
 
   const cardStyle = {
     ...divStyle,
-    background: '#12f8f12f',
-    borderRadius: '8px',
-    padding: '20px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    textAlign: 'center',
-    boxShadow: 'rgba(0, 0, 0, 0.4) 0px 2px 14px, rgba(0, 0, 0, 0.3) 0px 13px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset',
-    transition: 'all 0.3s ease',
+    background: "#12f8f12f",
+    borderRadius: "8px",
+    padding: "20px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center",
+    boxShadow:
+      "rgba(0, 0, 0, 0.4) 0px 2px 14px, rgba(0, 0, 0, 0.3) 0px 13px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset",
+    transition: "all 0.3s ease",
   };
 
   const cardHoverStyle = {
-    background: '#2f6f6f',
-    borderRadius: '10px',
-    boxShadow: 'rgba(0, 0, 0, 0.8) 0px 2px 20px, rgba(0, 0, 0, 0.6) 0px 15px 15px -7px, rgba(0, 0, 0, 0.4) 0px -3px 0px inset',
-    transform: 'scale(1.08)',
+    // background: "#2f6f6f",
+    borderRadius: "10px",
+    boxShadow:
+      "rgba(0, 255, 255, 0.4) 0px 2px 14px, rgba(0, 255, 255, 0.3) 0px 13px 13px -3px, rgba(0, 255, 255, 0.2) 0px -3px 0px inset",
+
+    transform: "scale(1.09)",
   };
 
   // State to track hover state for each card
@@ -142,10 +145,10 @@ function Home() {
         </div>
       </div>
 
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", }}>
         <div
           className="flex justify-center items-center mt-10"
-          style={{ marginRight: "auto" }}
+          style={{ marginRight: "auto", }}
         >
           <Calendar />
         </div>
