@@ -161,4 +161,8 @@ const findUser = async (req, res) => {
     res.status(error.statusCode || 500).json(new ApiResponse(error.statusCode || 500, null, error.message || "Internal Server Error"));
   }
 };
-export { registerStudent, loginUser, logoutUser,findUser };
+const getAllStudents = asyncHandler(async (req, res) => {
+  const students = await Student.find();
+  res.status(200).json(new ApiResponse(200, students, "All students fetched successfully"));
+});
+export { registerStudent, loginUser, logoutUser,findUser,getAllStudents };

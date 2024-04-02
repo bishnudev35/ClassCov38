@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Header from './Header';
+import Notification from './notificationSend';
 
 
 const AssignmentUpload = () => {
@@ -142,6 +143,7 @@ const AssignmentUpload = () => {
                 <button type="submit" className="px-4 py-2 font-bold text-green bg-blue-500 rounded hover:bg-green-700">
                     Submit
                 </button>
+                <Notification/>
             </form>
         </div>
         </>
