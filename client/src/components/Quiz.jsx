@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect, createRef } from 'react';
+import React, { useRef, useState, useEffect, createRef } from 'react';
 import './Quiz.css';
 import correctSound from "../assets/correct.mp3";
 import wrongSound from "../assets/wrong.mp3";
@@ -14,9 +14,9 @@ function Quiz() {
   const [lock, setLock] = useState(false);
   const [score, setScore] = useState(0);
   const [result, setResult] = useState(false);
-  const[correct,setCorrect]=useState(0);
-  const[wrong,setWrong]=useState(0);
-  const[totalquestions,settotalQuestions]=useState([]);
+  const [correct, setCorrect] = useState(0);
+  const [wrong, setWrong] = useState(0);
+  const [totalquestions, settotalQuestions] = useState([]);
   const [timer, setTimer] = useState(30); 
   const correctAudio = useRef(null);
   const wrongAudio = useRef(null);
@@ -35,28 +35,35 @@ function Quiz() {
       })
       .catch((error) => console.error('Error fetching quiz data:', error));
   }, []);
+  
   const NumberOfquestions = quizData.length;
-const correctAnswers = correct;
-const incorrectAnswers = wrong;
-const  AttemptedQuestions=correctAnswers+incorrectAnswers;
+  const correctAnswers = correct;
+  const incorrectAnswers = wrong;
+  const AttemptedQuestions = correctAnswers + incorrectAnswers;
 
-const pieChartData = [
-  { name: 'Attempted', value: AttemptedQuestions },
-  { name: "Total Number of Questions", value: NumberOfquestions },
-  { name: "Correct Answers", value: correctAnswers },
-  { name: "Incorrect Answers", value: incorrectAnswers},   
-];
-var percent= ((correctAnswers / NumberOfquestions)*100).toFixed(2)+"%";
-const comment =
-  percent >= 90
-    ? "Excellent: Congratulations! You've completed almost all of the quiz. Keep up the great work!"
-    : percent >= 70
-    ? "Good: You've done a solid job! Just a few more questions to go. Keep pushing!"
-    : percent >= 50
-    ? "Fair: You're making progress, but there's still room for improvement. Keep studying and give it another shot!"
-    : percent >= 30
-    ? "Needs Improvement: You're halfway there! Don't give up. Focus on areas where you struggled and try again."
-    : "Poor: It seems like you've just started. Don't worry, everyone has to begin somewhere. Keep practicing and you'll get there!";
+  const pieChartData = [
+    { name: 'Attempted', value: AttemptedQuestions },
+    { name: "Total Number of Questions", value: NumberOfquestions },
+    { name: "Correct Answers", value: correctAnswers },
+    { name: "Incorrect Answers", value: incorrectAnswers},   
+  ];
+
+  const percent = ((correctAnswers / NumberOfquestions) * 100).toFixed(2);
+  const comment =
+    percent >= 90
+      ? "Excellent: Congratulations! You've completed almost all of the quiz. Keep up the great work!"
+      : percent >= 70
+      ? "Good: You've done a solid job! Just a few more questions to go. Keep pushing!"
+      : percent >= 50
+      ? "Fair: You're making progress, but there's still room for improvement. Keep studying and give it another shot!"
+      : percent >= 30
+      ? "Needs Improvement: You're halfway there! Don't give up. Focus on areas where you struggled and try again."
+      : "Poor: It seems like you've just started. Don't worry, everyone has to begin somewhere. Keep practicing and you'll get there!";
+
+  // Save percentage in local storage
+  useEffect(() => {
+    localStorage.setItem('quizPercentage', percent);
+  }, [percent]);
 
   useEffect(() => {
     bgmAudio.current.volume = 1; // Adjust the volume of the background sound if needed
@@ -87,8 +94,7 @@ const comment =
   }, [quizData, index]);
 
   const checkAnswer = (e, ans) => {
-    settotalQuestions[index];
-    console.log("ans")
+    settotalQuestions(index);
   
     if (!lock) {
      
@@ -98,13 +104,13 @@ const comment =
         setLock(true);
         setScore((prevScore) => prevScore + 2);
         correctAudio.current.play();
-        setCorrect(correct+1);
+        setCorrect(correct + 1);
       } else {
         e.target.classList.add('incorrect');
         setLock(true);
         optionRefs.current[parseInt(question.answer) - 1].current.classList.add('correct');
         wrongAudio.current.play();
-        setWrong(wrong+1);
+        setWrong(wrong + 1);
       }
     }
   };
@@ -133,9 +139,6 @@ const comment =
     settotalQuestions(0);
     setWrong(0);
     setCorrect(0);
-
-
-
   };
  
   const formatTime = (time) => {
@@ -146,33 +149,31 @@ const comment =
 
   return (
     <>
-    
     <div className="container w-[650px] mt-5">
       <h1>Attempt the Quiz</h1>
       <div className='timer'>Time Remaining: {formatTime(timer)}</div>
       <hr />
       {result ? (
         <>
-       <h2>Analyse your Performance</h2>
-       <h3>You scored {percent} out of {NumberOfquestions } Questions</h3>
-      <p>{comment}</p>
-            <PieChart width={400} height={400}>
-  <Pie
-    data={pieChartData}
-    cx="50%"
-    cy="50%"
-    outerRadius={120}
-    fill="#8884d8"
-    dataKey="value"
-    label
-  >
-    {pieChartData.map((entry, index) => (
-      <Cell key={`cell-${index}`} fill={`rgba(${index * 17}, ${index * 130}, ${index * 140}, 0.2)`} />
-    ))}
-  </Pie>
-  <Tooltip contentStyle={{ color: '#ffffff' }} fill="white" /> {/* Use Tooltip instead of PieTooltip */}
-</PieChart>
-
+          <h2>Analyse your Performance</h2>
+          <h3>You scored {percent}% out of {NumberOfquestions} Questions</h3>
+          <p>{comment}</p>
+          <PieChart width={400} height={400}>
+            <Pie
+              data={pieChartData}
+              cx="50%"
+              cy="50%"
+              outerRadius={120}
+              fill="#8884d8"
+              dataKey="value"
+              label
+            >
+              {pieChartData.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={`rgba(${index * 17}, ${index * 130}, ${index * 140}, 0.2)`} />
+              ))}
+            </Pie>
+            <Tooltip contentStyle={{ color: '#ffffff' }} fill="white" /> {/* Use Tooltip instead of PieTooltip */}
+          </PieChart>
           <button onClick={resetQuiz}>Reset</button>
         </>
       ) : (
@@ -186,7 +187,7 @@ const comment =
                   <li
                     key={i}
                     ref={optionRefs.current[i]}
-                    onClick={(e) => checkAnswer(e, i+1)}
+                    onClick={(e) => checkAnswer(e, i + 1)}
                   >
                     {question[optionKey]}
                   </li>
