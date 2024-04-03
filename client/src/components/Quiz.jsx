@@ -4,6 +4,7 @@ import correctSound from "../assets/correct.mp3";
 import wrongSound from "../assets/wrong.mp3";
 import bgmSound from "../assets/bgm.mp3"; 
 import Header from '../StudentDashboard/Header'
+import { PieChart, Pie, Cell, Tooltip } from "recharts"; 
 
 function Quiz() {
 
@@ -34,6 +35,28 @@ function Quiz() {
       })
       .catch((error) => console.error('Error fetching quiz data:', error));
   }, []);
+  const NumberOfquestions = quizData.length;
+const correctAnswers = correct;
+const incorrectAnswers = wrong;
+const  AttemptedQuestions=correctAnswers+incorrectAnswers;
+
+const pieChartData = [
+  { name: 'Attempted', value: AttemptedQuestions },
+  { name: "Total Number of Questions", value: NumberOfquestions },
+  { name: "Correct Answers", value: correctAnswers },
+  { name: "Incorrect Answers", value: incorrectAnswers},   
+];
+var percent= ((correctAnswers / NumberOfquestions)*100).toFixed(2)+"%";
+const comment =
+  percent >= 90
+    ? "Excellent: Congratulations! You've completed almost all of the quiz. Keep up the great work!"
+    : percent >= 70
+    ? "Good: You've done a solid job! Just a few more questions to go. Keep pushing!"
+    : percent >= 50
+    ? "Fair: You're making progress, but there's still room for improvement. Keep studying and give it another shot!"
+    : percent >= 30
+    ? "Needs Improvement: You're halfway there! Don't give up. Focus on areas where you struggled and try again."
+    : "Poor: It seems like you've just started. Don't worry, everyone has to begin somewhere. Keep practicing and you'll get there!";
 
   useEffect(() => {
     bgmAudio.current.volume = 1; // Adjust the volume of the background sound if needed
@@ -130,10 +153,26 @@ function Quiz() {
       <hr />
       {result ? (
         <>
-        <h2>You Scored {score} out of {quizData.length * 2}</h2>
-            <h3>Total Number of Questions:{quizData.length}</h3>
-            <h3>Total Number of Correct Answers:{correct}</h3>
-            <h3>Total Number of Incorrect Answers:{wrong}</h3>
+       <h2>Analyse your Performance</h2>
+       <h3>You scored {percent} out of {NumberOfquestions } Questions</h3>
+      <p>{comment}</p>
+            <PieChart width={400} height={400}>
+  <Pie
+    data={pieChartData}
+    cx="50%"
+    cy="50%"
+    outerRadius={120}
+    fill="#8884d8"
+    dataKey="value"
+    label
+  >
+    {pieChartData.map((entry, index) => (
+      <Cell key={`cell-${index}`} fill={`rgba(${index * 17}, ${index * 130}, ${index * 140}, 0.2)`} />
+    ))}
+  </Pie>
+  <Tooltip contentStyle={{ color: '#ffffff' }} fill="white" /> {/* Use Tooltip instead of PieTooltip */}
+</PieChart>
+
           <button onClick={resetQuiz}>Reset</button>
         </>
       ) : (
