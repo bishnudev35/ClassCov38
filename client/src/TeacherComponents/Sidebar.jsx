@@ -61,7 +61,7 @@ function TeacherSidebar({ openSidebarToggle, OpenSidebar }) {
           </a>
         </li>
         <li className='sidebar-list-item'>
-          <a href="" className='flex'> {/* Updated href */}
+          <a href="Manage" className='flex'> {/* Updated href */}
             <BsPeopleFill className='icon' />
             Manage Students
           </a>

@@ -28,7 +28,7 @@ export default function Example2() {
         leaveFrom="opacity-100 translate-y-0"
         leaveTo="opacity-0 translate-y-[-30%]"
       >
-        <Menu.Items className="absolute left-0 z-10 mt-6"> {/* Updated z-index to 10 */}
+        <Menu.Items className="absolute left-0 z-10 mt-6"> 
           <div className="py-1">
             <Menu.Item>
              <Sidebar/>

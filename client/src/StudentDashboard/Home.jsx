@@ -93,21 +93,22 @@ function Home() {
   const [isHovered3, setIsHovered3] = useState(false);
   const [isHovered4, setIsHovered4] = useState(false);
   const [isHovered5, setIsHovered5] = useState(false);
+  const socreQuizz = localStorage.getItem("quizPercentage")
 
   const data = [
     { name: "Attendance", Performance: 50 },
-    { name: "Quiz", Performance: 30 },
+    { name: "Quiz", Performance: parseFloat(socreQuizz) },
     { name: "Assignment", Performance: 69 },
     { name: "ExtraCurricular", Performance: 30 },
     { name: "Grade", Performance: 50 },
   ];
 
   const pieChartData = [
-    { name: "Attendance", value: 50 },
-    { name: "Quiz", value: 30 },
-    { name: "Assignment", value: 69 },
+    { name: "Attendance", value: 30 },
+    { name: "Quiz", value: parseFloat(socreQuizz)},
+    { name: "Assignment", value: 47 },
     { name: "ExtraCurricular", value: 30 },
-    { name: "Grade", value: 50 },
+    { name: "Grade", value: 30 },
   ];
 
   return (
