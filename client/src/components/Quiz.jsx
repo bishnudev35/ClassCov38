@@ -17,7 +17,7 @@ function Quiz() {
   const[correct,setCorrect]=useState(0);
   const[wrong,setWrong]=useState(0);
   const[totalquestions,settotalQuestions]=useState([]);
-  const [timer, setTimer] = useState(30); 
+  const [timer, setTimer] = useState(0); 
   const correctAudio = useRef(null);
   const wrongAudio = useRef(null);
   const bgmAudio = useRef(null); // Ref for the background sound
@@ -46,17 +46,22 @@ const pieChartData = [
   { name: "Correct Answers", value: correctAnswers },
   { name: "Incorrect Answers", value: incorrectAnswers},   
 ];
-var percent= ((correctAnswers / NumberOfquestions)*100).toFixed(2)+"%";
+// Calculate the percentage of correct answers
+const percent = ((correctAnswers / NumberOfquestions) * 100).toFixed(2) + "%";
+const percent_val = ((correctAnswers / NumberOfquestions) * 100).toFixed(2);
+
+// Determine the comment based on the percentage
 const comment =
-  percent >= 90
+  percent_val >= 90.00
     ? "Excellent: Congratulations! You've completed almost all of the quiz. Keep up the great work!"
-    : percent >= 70
+    : percent_val >= 70.00
     ? "Good: You've done a solid job! Just a few more questions to go. Keep pushing!"
-    : percent >= 50
+    : percent_val >= 50.00
     ? "Fair: You're making progress, but there's still room for improvement. Keep studying and give it another shot!"
-    : percent >= 30
+    : percent_val >= 30.00
     ? "Needs Improvement: You're halfway there! Don't give up. Focus on areas where you struggled and try again."
     : "Poor: It seems like you've just started. Don't worry, everyone has to begin somewhere. Keep practicing and you'll get there!";
+
 
   useEffect(() => {
     bgmAudio.current.volume = 1; // Adjust the volume of the background sound if needed
@@ -147,7 +152,7 @@ const comment =
   return (
     <>
     
-    <div className="container w-[650px] mt-5">
+    <div className="container w-[650px] mt-2">
       <h1>Attempt the Quiz</h1>
       <div className='timer'>Time Remaining: {formatTime(timer)}</div>
       <hr />
@@ -156,7 +161,10 @@ const comment =
        <h2>Analyse your Performance</h2>
        <h3>You scored {percent} out of {NumberOfquestions } Questions</h3>
       <p>{comment}</p>
-            <PieChart width={400} height={400}>
+      <PieChart width={300} height={300} style={{ margin: 'auto'  }}>
+ 
+ 
+
   <Pie
     data={pieChartData}
     cx="50%"
