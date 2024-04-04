@@ -14,10 +14,12 @@ function Quiz() {
   const [lock, setLock] = useState(false);
   const [score, setScore] = useState(0);
   const [result, setResult] = useState(false);
+
   const [correct, setCorrect] = useState(0);
   const [wrong, setWrong] = useState(0);
   const [totalquestions, settotalQuestions] = useState([]);
   const [timer, setTimer] = useState(30); 
+
   const correctAudio = useRef(null);
   const wrongAudio = useRef(null);
   const bgmAudio = useRef(null); // Ref for the background sound
@@ -37,9 +39,10 @@ function Quiz() {
   }, []);
   
   const NumberOfquestions = quizData.length;
+
   const correctAnswers = correct;
   const incorrectAnswers = wrong;
-  const AttemptedQuestions = correctAnswers + incorrectAnswers;
+  const  AttemptedQuestions = correctAnswers + incorrectAnswers;
 
   const pieChartData = [
     { name: 'Attempted', value: AttemptedQuestions },
@@ -48,22 +51,22 @@ function Quiz() {
     { name: "Incorrect Answers", value: incorrectAnswers},   
   ];
 
-  const percent = ((correctAnswers / NumberOfquestions) * 100).toFixed(2);
+  // Calculate the percentage of correct answers
+  const percent = ((correctAnswers / NumberOfquestions) * 100).toFixed(2) + "%";
+  const percent_val = parseFloat(percent);
+
+  // Determine the comment based on the percentage
   const comment =
-    percent >= 90
+    percent_val >= 90.00
       ? "Excellent: Congratulations! You've completed almost all of the quiz. Keep up the great work!"
-      : percent >= 70
+      : percent_val >= 70.00
       ? "Good: You've done a solid job! Just a few more questions to go. Keep pushing!"
-      : percent >= 50
+      : percent_val >= 50.00
       ? "Fair: You're making progress, but there's still room for improvement. Keep studying and give it another shot!"
-      : percent >= 30
+      : percent_val >= 30.00
       ? "Needs Improvement: You're halfway there! Don't give up. Focus on areas where you struggled and try again."
       : "Poor: It seems like you've just started. Don't worry, everyone has to begin somewhere. Keep practicing and you'll get there!";
 
-  // Save percentage in local storage
-  useEffect(() => {
-    localStorage.setItem('quizPercentage', percent);
-  }, [percent]);
 
   useEffect(() => {
     bgmAudio.current.volume = 1; // Adjust the volume of the background sound if needed
@@ -149,31 +152,37 @@ function Quiz() {
 
   return (
     <>
-    <div className="container w-[650px] mt-5">
+    
+    <div className="container w-[650px] mt-2">
+
       <h1>Attempt the Quiz</h1>
       <div className='timer'>Time Remaining: {formatTime(timer)}</div>
       <hr />
       {result ? (
         <>
-          <h2>Analyse your Performance</h2>
-          <h3>You scored {percent}% out of {NumberOfquestions} Questions</h3>
-          <p>{comment}</p>
-          <PieChart width={400} height={400}>
-            <Pie
-              data={pieChartData}
-              cx="50%"
-              cy="50%"
-              outerRadius={120}
-              fill="#8884d8"
-              dataKey="value"
-              label
-            >
-              {pieChartData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={`rgba(${index * 17}, ${index * 130}, ${index * 140}, 0.2)`} />
-              ))}
-            </Pie>
-            <Tooltip contentStyle={{ color: '#ffffff' }} fill="white" /> {/* Use Tooltip instead of PieTooltip */}
-          </PieChart>
+       <h2>Analyse your Performance</h2>
+       <h3>You scored {percent} out of {NumberOfquestions } Questions</h3>
+      <p>{comment}</p>
+      <PieChart width={300} height={300} style={{ margin: 'auto' }}>
+ 
+ 
+
+  <Pie
+    data={pieChartData}
+    cx="50%"
+    cy="50%"
+    outerRadius={120}
+    fill="#8884d8"
+    dataKey="value"
+    label
+  >
+    {pieChartData.map((entry, index) => (
+      <Cell key={`cell-${index}`} fill={`rgba(${index * 17}, ${index * 130}, ${index * 140}, 0.2)`} />
+    ))}
+  </Pie>
+  <Tooltip contentStyle={{ color: '#ffffff' }} fill="white" /> {/* Use Tooltip instead of PieTooltip */}
+</PieChart>
+
           <button onClick={resetQuiz}>Reset</button>
         </>
       ) : (
