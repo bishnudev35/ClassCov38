@@ -53,7 +53,7 @@ function Quiz() {
 
   // Calculate the percentage of correct answers
   const percent = ((correctAnswers / NumberOfquestions) * 100).toFixed(2) + "%";
-  const percent_val = parseFloat(percent);
+  const percent_val = ((correctAnswers / NumberOfquestions) * 100).toFixed(2) ;
 
   // Determine the comment based on the percentage
   const comment =
@@ -66,6 +66,11 @@ function Quiz() {
       : percent_val >= 30.00
       ? "Needs Improvement: You're halfway there! Don't give up. Focus on areas where you struggled and try again."
       : "Poor: It seems like you've just started. Don't worry, everyone has to begin somewhere. Keep practicing and you'll get there!";
+
+      // Save percentage in local storage
+      useEffect(() => {
+        localStorage.setItem('quizPercentage', percent_val);
+      }, [percent_val]);
 
 
   useEffect(() => {

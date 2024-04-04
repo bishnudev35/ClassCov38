@@ -94,6 +94,7 @@ function Home() {
   const [isHovered4, setIsHovered4] = useState(false);
   const [isHovered5, setIsHovered5] = useState(false);
   const socreQuizz = localStorage.getItem("quizPercentage")
+
   const data = [
     { name: "Attendance", Performance: 50 },
     { name: "Quiz", Performance: parseFloat(socreQuizz) },
