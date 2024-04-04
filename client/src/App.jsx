@@ -14,6 +14,7 @@ import QR from './TeacherComponents/QRCodeGenerator';
 import Todo from './components/Todo/Todo';
 import StartQuiz from './components/StartQuiz';
 import QuizPage from './components/QuizPage';
+import Fruit from './components/Memorygames/fruits';
 
 
 
@@ -38,7 +39,7 @@ function App() {
         <Route path='/assignment' element={<Assignments/>}/>
          <Route path='/todo' element={<Todo/>}/>
         <Route path="/QRCodegenerator" element={<QR/>}/>
-
+        <Route path='/fruitGame' element={<Fruit/>}/>
         <Route/>
         </Routes>
      

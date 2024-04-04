@@ -31,7 +31,6 @@ const studentSchema = new Schema(
     },
     studentAvatar: {
       type: String,
-      
     },
     instituteName: {
       type: String,
@@ -87,7 +86,7 @@ studentSchema.methods.generateAccessToken = function () {
     },
     process.env.ACCESS_TOKEN_SECRET,
     {
-      expiresIn: process.env.ACCESS_TOKEN_EXPIRY
+      expiresIn: process.env.ACCESS_TOKEN_EXPIRY,
     }
   );
 };

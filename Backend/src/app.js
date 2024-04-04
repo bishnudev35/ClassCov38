@@ -20,6 +20,7 @@ app.use("/api/v1/students",notesRouter)
 app.use("/api/v1/students",assignmentRouter)
 app.use("/api/v1/students",quizzRouter)
 app.use("/api/v1/students",studentRouter)
+
 //assignment
 import assignmentRouter from "./routes/assignment.routes.js"
 import  teacherRouter from "./routes/teacher.routes.js"
