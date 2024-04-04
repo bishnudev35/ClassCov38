@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import WordDescription from './WordDescription';
 import Header from '../../StudentDashboard/Header'
+import Word from './WordGame/WordGame';
 
 function App() {
   const [wordData, setWordData] = useState([]);
@@ -101,6 +102,7 @@ function App() {
             {index === 0 ? <WordDescription word={item.word} meaning={item.meaning} partOfSpeech={item.partOfSpeech} /> : null}
           </div>
         ))}
+        <Word/>
       </div>
     </>
   );
