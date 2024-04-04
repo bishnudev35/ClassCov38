@@ -4,6 +4,8 @@ import { Student } from "../models/student.model.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import {Teacher} from "../models/teacher.model.js"
 import { Assignment } from "../models/assignment.model.js";
+import { Solution } from "../models/solution.model.js";
+import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
 
 const giveAssignment = asyncHandler(async(req,res)=>{
@@ -49,25 +51,41 @@ const getAssignments = asyncHandler(async (req,res)=>{
   }
 })
 
-// const pptLocalPath = req.files?.pptUpload[0]?.path;
-// if(!pptLocalPath){
-//   throw new ApiError(400, "ppt file is required");
-// }
-// const ppt = await uploadOnCloudinary(pptLocalPath);
+const solutionAssignment = asyncHandler(async (req, res) => {
+  try {
+    const { assignmentId } = req.params; // Assuming assignmentId is passed in the request parameters
+   const pptLocalPath = req.files?.pptUrl[0]?.path;
+if (!pptLocalPath) {
+    throw new ApiError(400, "Avatar file is required");
+  }
 
-//   if (!ppt) {
-//     throw new ApiError(400, "ppt file is required2");
-//   }
+  const pptUrl = await uploadOnCloudinary(pptLocalPath)
 
-//   const assignment = await Assignment.create({
-//     pptUploadPath: ppt.url
-//   })
-//   return res
-//     .status(201)
-//     .json(new ApiResponse(200, assignment, "ppt registered Successfully"));
-    
+  const videoLocalPath = req.files?.videoUrl[0]?.path;
+if (!videoLocalPath) {
+    throw new ApiError(400, "Avatar file is required");
+  }
+
+  const videoUrl = await uploadOnCloudinary(videoLocalPath)
+
+    const solution = new Solution({
+      assignment: assignmentId,
+      pptUrl: pptUrl,
+      videoUrl: videoUrl,
+    });
+
+    await solution.save();
+
+    res.status(201).json({ success: true, data: solution });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, error: 'Server error' });
+  }
+});
+
+
 export {
     giveAssignment,
     getAssignments,
-    // submitAssignments
+    solutionAssignment
 }

@@ -78,9 +78,9 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
           </a>
         </li>
         <li className='sidebar-list-item'>
-          <a href="/Stud"  className='flex'>
+          <a href="/fruitGame"  className='flex'>
             <BsMenuButtonWideFill className='icon' />
-            Update Profile
+           Memory Games
           </a>
         </li>
         <li className='sidebar-list-item'>
